@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { ModuleWithProviders, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AuthRoutingModule } from './auth-routing.module';
@@ -12,12 +12,17 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatInputModule} from '@angular/material/input';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+import {MatMenuModule} from '@angular/material/menu';
+import {MatDividerModule} from '@angular/material/divider';
+import { AuthInterceptor } from '../auth.interceptor';
+import {MatProgressBarModule} from '@angular/material/progress-bar';
 
 
 @NgModule({
   declarations: [
     LoginComponent,
-    RegisterComponent,
+    RegisterComponent
   
   ],
   imports: [
@@ -31,8 +36,22 @@ import {MatButtonModule} from '@angular/material/button';
     MatIconModule,
     FlexLayoutModule,
     MatButtonModule,
-    MatInputModule
+    MatInputModule,
+    MatSnackBarModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatProgressBarModule
+
   
   ]
 })
-export class AuthModule { }
+export class AuthModule { 
+  static forRoot():ModuleWithProviders<any> {
+    return {
+      ngModule:AuthModule,
+      providers:[
+        AuthInterceptor
+      ]
+    }
+  }
+}
